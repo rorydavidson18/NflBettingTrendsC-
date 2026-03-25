@@ -1,0 +1,22 @@
+@page
+@model ClaudeTest.Pages.Teams.UpsertModel
+
+<h2>@(Model.Team.Id == 0 ? "New Team" : "Edit Team")</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Team.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Team.Name" class="form-label"></label>
+        <input asp-for="Team.Name" class="form-control" />
+        <span asp-validation-for="Team.Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Team.Description" class="form-label"></label>
+        <textarea asp-for="Team.Description" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="/Teams" class="btn btn-secondary">Cancel</a>
+</form>

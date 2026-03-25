@@ -1,0 +1,28 @@
+@page
+@model ClaudeTest.Pages.Index
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="home-wrap">
+    <p class="home-eyebrow">Welcome</p>
+
+    <h1 class="home-headline">
+        Things I've<br />
+        built &amp; <em>explored</em>
+    </h1>
+
+    <p class="home-body">
+        A personal space to track projects, ideas, and work.
+        Browse the items list or read more about this project below.
+    </p>
+
+    <div class="home-actions">
+        <a asp-page="/Teams" class="btn-primary-custom">View Teams →</a>
+        <a asp-page="/Games" class="btn-primary-custom">View Games →</a>
+        <a asp-page="/About" class="btn-ghost">About</a>
+    </div>
+
+    <div class="home-rule"></div>
+    <p class="home-tagline">Powered by ASP.NET Razor Pages &amp; Azure SQL</p>
+</div>

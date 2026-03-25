@@ -1,0 +1,124 @@
+@page
+@model ClaudeTest.Pages.Teams.TeamQuery
+@{
+    ViewData["Title"] = "Teams";
+}
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+    <title>Teams</title>
+</head>
+
+@* *@
+@* <table class="table table-striped"> *@
+@*     <thead> *@
+@*     <tr> *@
+@*         <th>ID</th><th>Name</th><th>Description</th><th>Created</th><th></th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*     @foreach (var item in Model.Teams) *@
+@*     { *@
+@*         <tr> *@
+@*             <td>@item.Id</td> *@
+@*             <td>@item.Name</td> *@
+@*             <td>@item.Abbreviation</td> *@
+@*             <td><a href="/Teams/Upsert?id=@item.Id">Edit</a></td> *@
+@*         </tr> *@
+@*     } *@
+@*     </tbody> *@
+@* </table> *@
+
+
+<div class="items-wrap">
+    <div class="items-header">
+        <h2 class="items-title">Teams</h2>
+        <a href="/Teams/Upsert" class="btn btn-primary mb-3">+ New Team</a>
+    </div>
+
+    <!-- Search Form -->
+    <form method="get">
+        <div class="search-bar">
+            <div class="search-field search-field--id">
+                <label for="TeamId">ID</label>
+                <input id="TeamId" name="TeamId" type="number" min="1"
+                       placeholder="e.g. 42"
+                       value="@Model.TeamId" />
+            </div>
+
+            <div class="search-field search-field--name">
+                <label for="TeamName">Name</label>
+                <input id="TeamName" name="TeamName" type="text"
+                       placeholder="Search by name…"
+                       value="@Model.TeamName" />
+            </div>
+
+            <div class="search-actions">
+                <button type="submit" class="btn-search">Search</button>
+                @if (Model.TeamId.HasValue || !string.IsNullOrWhiteSpace(Model.TeamName))
+                {
+                    <a asp-page="/Teams/Index" class="btn-clear">Clear</a>
+                }
+            </div>
+        </div>
+    </form>
+
+    <!-- Result count -->
+    @if (Model.TeamId.HasValue || !string.IsNullOrWhiteSpace(Model.TeamName))
+    {
+        <p class="result-meta">
+            <strong>@Model.Teams.Count</strong>
+            result@(Model.Teams.Count == 1 ? "" : "s") found
+            @if (!string.IsNullOrWhiteSpace(Model.TeamName))
+            {
+                <span>for "<em>@Model.TeamName</em>"</span>
+            }
+        </p>
+    }
+
+    <!-- Table -->
+    @if (!Model.Teams.Any())
+    {
+        <div class="empty-state">
+            @if (Model.TeamId.HasValue || !string.IsNullOrWhiteSpace(Model.TeamName))
+            {
+                <p>No items matched your search.</p>
+            }
+            else
+            {
+                <p>No items yet — <a asp-page="/Teams/Upsert">create one</a>.</p>
+            }
+        </div>
+    }
+    else
+    {
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Abbreviation</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Teams)
+                {
+                    <tr>
+                        <td><span class="id-badge">#@item.Id</span></td>
+                        <td>@item.Name</td>
+                        <td>@item.Abbreviation</td>
+                        <td><a href="/Teams/Upsert?id=@item.Id">Edit</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
