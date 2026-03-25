@@ -55,9 +55,9 @@
             <div class="search-field">
                 <label for="CareAboutHomeAndAway">CareAboutHomeAndAway</label>
                 <select id="CareAboutHomeAndAway" name="CareAboutHomeAndAway" class="form-select">
-                    <option value="true" selected="@(Model.CareAboutHomeAndAway == true ? "selected" : null)">True
+                    <option value="false" selected="@(!Model.CareAboutHomeAndAway ? "selected" : null)">False
                     </option>
-                    <option value="false" selected="@(Model.CareAboutHomeAndAway == false ? "selected" : null)">False
+                    <option value="true" selected="@(Model.CareAboutHomeAndAway ? "selected" : null)">True
                     </option>
                 </select>
             </div>
@@ -72,10 +72,10 @@
             <div class="search-field">
                 <label for="SpreadGreaterThanOrEqualTo">Spread Comparator</label>
                 <select id="SpreadGreaterThanOrEqualTo" name="SpreadGreaterThanOrEqualTo" class="form-select">
-                    <option value="true" selected="@(Model.SpreadGreaterThanOrEqualTo == true ? "selected" : null)">
+                    <option value="true" selected="@(Model.SpreadGreaterThanOrEqualTo ? "selected" : null)">
                         Greater Than
                     </option>
-                    <option value="false" selected="@(Model.SpreadGreaterThanOrEqualTo == false ? "selected" : null)">
+                    <option value="false" selected="@(!Model.SpreadGreaterThanOrEqualTo ? "selected" : null)">
                         Less Than
                     </option>
                 </select>
@@ -91,10 +91,10 @@
             <div class="search-field">
                 <label for="TotalGreaterThanOrEqualTo">Total Comparator</label>
                 <select id="TotalGreaterThanOrEqualTo" name="TotalGreaterThanOrEqualTo" class="form-select">
-                    <option value="true" selected="@(Model.TotalGreaterThanOrEqualTo == true ? "selected" : null)">
+                    <option value="true" selected="@(Model.TotalGreaterThanOrEqualTo ? "selected" : null)">
                         Greater Than
                     </option>
-                    <option value="false" selected="@(Model.TotalGreaterThanOrEqualTo == false ? "selected" : null)">
+                    <option value="false" selected="@(!Model.TotalGreaterThanOrEqualTo ? "selected" : null)">
                         Less Than
                     </option>
                 </select>
@@ -127,6 +127,9 @@
             <span>for GameId: "<em>@Model.GameId</em>" and Team1: "<em>@Model.Team1</em>" and Team 2: "<em>@Model.Team2</em>" and Spread: "<em>@Model.Spread</em>" and Total: "<em>@Model.Total</em>"</span>
         </p>
     }
+
+    <p>Home Teams cover @Model.Trends.SpreadPercentage% of the time</p>
+    <p>The Over hits @Model.Trends.TotalPercentage% of the time</p>
 
     <!-- Table -->
     @if (!Model.Games.Any())

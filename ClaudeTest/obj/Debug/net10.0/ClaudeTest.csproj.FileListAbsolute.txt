@@ -134,3 +134,4 @@
 /Users/Rory/Documents/C# projects/TestAppClaude/ClaudeTest/ClaudeTest/obj/Debug/net10.0/ClaudeTest.pdb
 /Users/Rory/Documents/C# projects/TestAppClaude/ClaudeTest/ClaudeTest/obj/Debug/net10.0/ClaudeTest.genruntimeconfig.cache
 /Users/Rory/Documents/C# projects/TestAppClaude/ClaudeTest/ClaudeTest/obj/Debug/net10.0/ref/ClaudeTest.dll
+/Users/Rory/Documents/C# projects/TestAppClaude/ClaudeTest/ClaudeTest/obj/Debug/net10.0/ClaudeTest.sourcelink.json

@@ -1,11 +1,12 @@
 using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
+using ClaudeTest.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ClaudeTest.Pages.Games;
 
-public class GameQuery : PageModel
+public class GameQuery(IGamesService gamesService) : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public long? GameId { get; set; }
@@ -17,7 +18,7 @@ public class GameQuery : PageModel
     public string? Team2 { get; set; }
     
     [BindProperty(SupportsGet = true)]
-    public bool? CareAboutHomeAndAway { get; set; }
+    public bool CareAboutHomeAndAway { get; set; }
     
     [BindProperty(SupportsGet = true)]
     public double? Spread { get; set; }
@@ -31,15 +32,17 @@ public class GameQuery : PageModel
     [BindProperty(SupportsGet = true)]
     public bool TotalGreaterThanOrEqualTo { get; set; }
 
-    public List<GameEntity> Games { get; set; } = new();
+    public List<GameEntity> Games { get; set; } = [];
 
-    private readonly IGamesService gamesService;
+    public TrendsModel Trends { get; set; } = new();
 
-    public GameQuery(IGamesService gamesService) => this.gamesService = gamesService;
-    
+    private readonly IGamesService gamesService = gamesService;
+
     public async Task OnGetAsync()
     {
         Games = await gamesService.GetGames(GameId, Team1, Team2, CareAboutHomeAndAway, Spread, 
             SpreadGreaterThanOrEqualTo, Total, TotalGreaterThanOrEqualTo);
+
+        Trends = gamesService.CalculateTrends(Games);
     }
 }

@@ -105,6 +105,8 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Abbreviation</th>
+                    <th>Conference</th>
+                    <th>Division</th>
                     <th></th>
                 </tr>
             </thead>
@@ -115,7 +117,9 @@
                         <td><span class="id-badge">#@item.Id</span></td>
                         <td>@item.Name</td>
                         <td>@item.Abbreviation</td>
-                        <td><a href="/Teams/Upsert?id=@item.Id">Edit</a></td>
+                        <td>@item.Division.Conference.Name</td>
+                        <td>@item.Division.Name</td>
+                        <td><a href="/Games/GameQuery?Team1=@item.Abbreviation">Games</a></td>
                     </tr>
                 }
             </tbody>

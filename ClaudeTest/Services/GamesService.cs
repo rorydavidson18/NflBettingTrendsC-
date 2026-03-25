@@ -1,6 +1,7 @@
 using ClaudeTest.Data;
 using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
+using ClaudeTest.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClaudeTest.Services;
@@ -76,5 +77,29 @@ public class GamesService : IGamesService
             .Include(e => e.HomeTeam)
             .Include(e => e.AwayTeam)
             .ToListAsync();
+    }
+
+    public TrendsModel CalculateTrends(List<GameEntity> games)
+    {
+        var totalGames = games.Count;
+
+        if (totalGames == 0)
+        {
+            return new TrendsModel()
+            {
+                SpreadPercentage = 0,
+                TotalPercentage = 0
+            };
+        }
+
+        double gamesHomeTeamCovered = games.Count(e => e.SpreadResult > 0);
+
+        double gamesOverTotal = games.Count(e => e.TotalResult > 0);
+
+        return new TrendsModel()
+        {
+            SpreadPercentage = (gamesHomeTeamCovered / totalGames) * 100,
+            TotalPercentage = (gamesOverTotal / totalGames) * 100
+        };
     }
 }

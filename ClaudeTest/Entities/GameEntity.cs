@@ -2,19 +2,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClaudeTest.Entities;
 
+[Table("games")]
 public class GameEntity
 {
     public long Id { get; set; }
     
     public long HomeTeamId { get; set; }
-    
-    [ForeignKey("HomeTeamId")]
-    public TeamEntity HomeTeam { get; set; }
+
+    [ForeignKey("HomeTeamId")] 
+    public TeamEntity HomeTeam { get; set; } = null!;
     
     public long AwayTeamId { get; set; }
     
     [ForeignKey("AwayTeamId")]
-    public TeamEntity AwayTeam { get; set; }
+    public TeamEntity AwayTeam { get; set; } = null!;
     
     public DateTime Date { get; set; }
     

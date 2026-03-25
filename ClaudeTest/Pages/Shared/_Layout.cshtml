@@ -24,9 +24,13 @@
                class="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "active" : "")">
             Home
         </a></li>
-        <li><a asp-page="/Items/Index"
-               class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Items") == true ? "active" : "")">
-            Items
+        <li><a asp-page="/Teams/TeamQuery"
+               class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Team/TeamQuery") == true ? "active" : "")">
+            Teams
+        </a></li>
+        <li><a asp-page="/Games/GameQuery"
+               class="@(ViewContext.RouteData.Values["page"]?.ToString()?.StartsWith("/Games/GameQuery") == true ? "active" : "")">
+            Games
         </a></li>
         <li><a asp-page="/About">About</a></li>
     </ul>
