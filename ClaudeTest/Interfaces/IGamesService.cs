@@ -9,4 +9,6 @@ public interface IGamesService
         double? spread, bool spreadGreaterThanOrEqualTo, double? total, bool totalGreaterThanOrEqualTo);
 
     public TrendsModel CalculateTrends(List<GameEntity> games);
+
+    public Task InsertGame(GameInsertModel model);
 }

@@ -1,6 +1,7 @@
 using ClaudeTest.Data;
 using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
+using ClaudeTest.Mappers;
 using ClaudeTest.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -101,5 +102,16 @@ public class GamesService : IGamesService
             SpreadPercentage = (gamesHomeTeamCovered / totalGames) * 100,
             TotalPercentage = (gamesOverTotal / totalGames) * 100
         };
+    }
+
+    public async Task InsertGame(GameInsertModel model)
+    {
+        var homeTeamId = await dbContext.Teams.SingleAsync(e => e.Abbreviation == model.HomeTeamAbv);
+        var awayTeamId = await dbContext.Teams.SingleAsync(e => e.Abbreviation == model.AwayTeamAbv);
+        
+        var entity = ModelMapper.ToEntity(model, homeTeamId.Id, awayTeamId.Id);
+        dbContext.Games.Add(entity);
+
+        await dbContext.SaveChangesAsync();
     }
 }

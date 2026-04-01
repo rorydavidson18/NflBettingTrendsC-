@@ -7,6 +7,7 @@ using ClaudeTest.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddAntiforgery();
 
 builder.Services.AddDbContext<NflDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -20,6 +21,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAntiforgery();
 app.MapRazorPages();
 
 app.Run();

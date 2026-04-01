@@ -19,7 +19,7 @@
 <div class="items-wrap">
     <div class="items-header">
         <h2 class="items-title">Games</h2>
-        <a href="/Games/Upsert" class="btn btn-primary mb-3">+ New Game</a>
+        <a href="/Games/GamesInsert" class="btn btn-primary mb-3">+ New Game</a>
     </div>
 
     <!-- Search Form -->
@@ -46,12 +46,6 @@
                        value="@Model.Team2"/>
             </div>
 
-            @* <div class="form-check"> *@
-            @*     <label class="form-check-label" for="CareAboutHomeAndAway">CareAboutHomeAndAway</label> *@
-            @*     <input type="hidden" name="CareAboutHomeAndAway" value="false" /> *@
-            @*     <input type="checkbox" name="CareAboutHomeAndAway" class="form-check-input"  *@
-            @*            id="CareAboutHomeAndAway" value="@Model.CareAboutHomeAndAway"/> *@
-            @* </div> *@
             <div class="search-field">
                 <label for="CareAboutHomeAndAway">CareAboutHomeAndAway</label>
                 <select id="CareAboutHomeAndAway" name="CareAboutHomeAndAway" class="form-select">
@@ -145,7 +139,7 @@
             }
             else
             {
-                <p>No items yet — <a asp-page="/Games/Upsert">create one</a>.</p>
+                <p>No items yet — <a asp-page="/Games/GamesInsert">create one</a>.</p>
             }
         </div>
     }
@@ -166,7 +160,6 @@
                 <th>Total</th>
                 <th>TotalResult</th>
                 <th>PlayoffGame</th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -184,7 +177,6 @@
                     <td>@item.Total</td>
                     <td>@item.TotalResultString</td>
                     <td>@item.PlayoffGame</td>
-                    <td><a href="/Games/Upsert?id=@item.Id">Edit</a></td>
                 </tr>
             }
             </tbody>
