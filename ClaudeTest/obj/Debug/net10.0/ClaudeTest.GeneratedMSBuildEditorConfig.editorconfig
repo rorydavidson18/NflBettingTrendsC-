@@ -45,3 +45,7 @@ build_metadata.AdditionalFiles.CssScope =
 [/Users/Rory/Documents/C\# projects/TestAppClaude/ClaudeTest/ClaudeTest/Pages/Teams/Upsert.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVGVhbXMvVXBzZXJ0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/Rory/Documents/C\# projects/TestAppClaude/ClaudeTest/ClaudeTest/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
