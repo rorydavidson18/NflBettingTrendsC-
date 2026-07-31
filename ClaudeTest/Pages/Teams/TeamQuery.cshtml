@@ -16,34 +16,12 @@
     <title>Teams</title>
 </head>
 
-@* *@
-@* <table class="table table-striped"> *@
-@*     <thead> *@
-@*     <tr> *@
-@*         <th>ID</th><th>Name</th><th>Description</th><th>Created</th><th></th> *@
-@*     </tr> *@
-@*     </thead> *@
-@*     <tbody> *@
-@*     @foreach (var item in Model.Teams) *@
-@*     { *@
-@*         <tr> *@
-@*             <td>@item.Id</td> *@
-@*             <td>@item.Name</td> *@
-@*             <td>@item.Abbreviation</td> *@
-@*             <td><a href="/Teams/Upsert?id=@item.Id">Edit</a></td> *@
-@*         </tr> *@
-@*     } *@
-@*     </tbody> *@
-@* </table> *@
-
-
 <div class="items-wrap">
     <div class="items-header">
         <h2 class="items-title">Teams</h2>
         <a href="/Teams/Upsert" class="btn btn-primary mb-3">+ New Team</a>
     </div>
 
-    <!-- Search Form -->
     <form method="get">
         <div class="search-bar">
             <div class="search-field search-field--id">
@@ -70,7 +48,6 @@
         </div>
     </form>
 
-    <!-- Result count -->
     @if (Model.TeamId.HasValue || !string.IsNullOrWhiteSpace(Model.TeamName))
     {
         <p class="result-meta">
@@ -83,7 +60,6 @@
         </p>
     }
 
-    <!-- Table -->
     @if (!Model.Teams.Any())
     {
         <div class="empty-state">

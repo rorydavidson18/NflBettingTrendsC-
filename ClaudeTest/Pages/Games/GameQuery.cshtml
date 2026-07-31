@@ -22,31 +22,33 @@
         <a href="/Games/GamesInsert" class="btn btn-primary mb-3">+ New Game</a>
     </div>
 
-    <!-- Search Form -->
     <form method="get">
-        <div class="search-bar">
-            <div class="search-field search-field--id">
+        <div class="row">
+            <div class="col-md-3 mb-3">
                 <label for="GameId">ID</label>
                 <input id="GameId" name="GameId" type="number" min="1"
                        placeholder="e.g. 42"
-                       value="@Model.GameId"/>
+                       class="form-control"
+                       asp-for="GameId"/>
             </div>
 
-            <div class="search-field search-field--name">
+            <div class="col-md-3 mb-3">
                 <label for="Team1">Team 1 Abbreviation</label>
                 <input id="Team1" name="Team1" type="text"
                        placeholder="Search by name…"
-                       value="@Model.Team1"/>
+                       class="form-control"
+                       asp-for="Team1"/>
             </div>
 
-            <div class="search-field search-field--name">
+            <div class="col-md-3 mb-3">
                 <label for="Team2">Team 2 Abbreviation</label>
                 <input id="Team2" name="Team2" type="text"
                        placeholder="Search by name…"
-                       value="@Model.Team2"/>
+                       class="form-control"
+                       asp-for="Team2"/>
             </div>
 
-            <div class="search-field">
+            <div class="col-md-3 mb-3">
                 <label for="CareAboutHomeAndAway">CareAboutHomeAndAway</label>
                 <select id="CareAboutHomeAndAway" name="CareAboutHomeAndAway" class="form-select">
                     <option value="false" selected="@(!Model.CareAboutHomeAndAway ? "selected" : null)">False
@@ -55,15 +57,30 @@
                     </option>
                 </select>
             </div>
+        </div>
 
-            <div class="search-field search-field--id">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="StartDate" class="form-label">From: </label>
+                <input asp-for="StartDate" type="date" class="form-control" id="StartDate"/>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="EndDate" class="form-label">To: </label>
+                <input asp-for="EndDate" type="date" class="form-control" id="EndDate"/>
+                @* <span asp-validation-for="Game.Date" class="date-danger"></span> *@
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
                 <label for="Spread">Spread</label>
                 <input id="Spread" name="Spread" type="number" min="1"
                        placeholder="e.g. 2.5"
+                       class="form-control"
                        value="@Model.Spread"/>
             </div>
 
-            <div class="search-field">
+            <div class="col-md-3 mb-3">
                 <label for="SpreadGreaterThanOrEqualTo">Spread Comparator</label>
                 <select id="SpreadGreaterThanOrEqualTo" name="SpreadGreaterThanOrEqualTo" class="form-select">
                     <option value="true" selected="@(Model.SpreadGreaterThanOrEqualTo ? "selected" : null)">
@@ -75,14 +92,15 @@
                 </select>
             </div>
 
-            <div class="search-field search-field--id">
+            <div class="col-md-3 mb-3">
                 <label for="Total">Total</label>
                 <input id="Total" name="Total" type="number" min="1"
                        placeholder="e.g. 2.5"
+                       class="form-control"
                        value="@Model.Total"/>
             </div>
-            
-            <div class="search-field">
+
+            <div class="col-md-3 mb-3">
                 <label for="TotalGreaterThanOrEqualTo">Total Comparator</label>
                 <select id="TotalGreaterThanOrEqualTo" name="TotalGreaterThanOrEqualTo" class="form-select">
                     <option value="true" selected="@(Model.TotalGreaterThanOrEqualTo ? "selected" : null)">
@@ -93,18 +111,18 @@
                     </option>
                 </select>
             </div>
+        </div>
 
-            <div class="search-actions">
-                <button type="submit" class="btn-search">Search</button>
-                @if (Model.GameId.HasValue ||
-                     !string.IsNullOrWhiteSpace(Model.Team1) ||
-                     !string.IsNullOrWhiteSpace(Model.Team2) ||
-                     Model.Spread.HasValue ||
-                     Model.Total.HasValue)
-                {
-                    <a asp-page="/Games/Index" class="btn-clear">Clear</a>
-                }
-            </div>
+        <div class="row">
+            <button type="submit" class="btn-search">Search</button>
+            @if (Model.GameId.HasValue ||
+                 !string.IsNullOrWhiteSpace(Model.Team1) ||
+                 !string.IsNullOrWhiteSpace(Model.Team2) ||
+                 Model.Spread.HasValue ||
+                 Model.Total.HasValue)
+            {
+                <a asp-page="/Games/Index" class="btn-clear">Clear</a>
+            }
         </div>
     </form>
 
@@ -183,3 +201,4 @@
         </table>
     }
 </div>
+

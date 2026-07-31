@@ -14,7 +14,8 @@ public class GamesService : IGamesService
     public GamesService(NflDbContext dbContext) => this.dbContext = dbContext;
 
     public async Task<List<GameEntity>> GetGames(long? gameId, string? team1, string? team2, bool? careAboutHomeAndAway,
-        double? spread, bool spreadGreaterThanOrEqualTo, double? total, bool totalGreaterThanOrEqualTo)
+        double? spread, bool spreadGreaterThanOrEqualTo, double? total, bool totalGreaterThanOrEqualTo,
+        DateTime startDate, DateTime endDate)
     {
         var games = dbContext.Games.AsQueryable();
 
@@ -71,6 +72,8 @@ public class GamesService : IGamesService
                 games = games.Where(e => e.Total <= total);
             }
         }
+
+        games = games.Where(e => e.Date >= startDate && e.Date <= endDate);
         
         //TODO make a playoff game search
 

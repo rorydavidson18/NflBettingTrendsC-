@@ -32,6 +32,12 @@ public class GameQuery(IGamesService gamesService) : PageModel
     [BindProperty(SupportsGet = true)]
     public bool TotalGreaterThanOrEqualTo { get; set; }
 
+    [BindProperty(SupportsGet = true)] 
+    public DateTime StartDate { get; set; } = DateTime.Parse("08/31/2020");
+
+    [BindProperty(SupportsGet = true)]
+    public DateTime EndDate { get; set; } = DateTime.Now;
+
     public List<GameEntity> Games { get; set; } = [];
 
     public TrendsModel Trends { get; set; } = new();
@@ -41,7 +47,7 @@ public class GameQuery(IGamesService gamesService) : PageModel
     public async Task OnGetAsync()
     {
         Games = await gamesService.GetGames(GameId, Team1, Team2, CareAboutHomeAndAway, Spread, 
-            SpreadGreaterThanOrEqualTo, Total, TotalGreaterThanOrEqualTo);
+            SpreadGreaterThanOrEqualTo, Total, TotalGreaterThanOrEqualTo, StartDate, EndDate);
 
         Trends = gamesService.CalculateTrends(Games);
     }
