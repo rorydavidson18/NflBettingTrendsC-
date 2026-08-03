@@ -4,17 +4,15 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="home-wrap">
-    <p class="home-eyebrow">Welcome</p>
+<div class="container py-4">
+    <p class="text-muted mb-4">Welcome</p>
 
-    <div class="home-actions">
-        <a href="/Teams/TeamQuery" class="btn-primary-custom">View Teams →</a>
-        <p></p>
-        <a href="/Games/GameQuery" class="btn-primary-custom">View Games →</a>
-        <p></p>
-        <a href="/Games/GamesInsert" class="btn-primary-custom">New Game →</a>
+    <div class="d-flex flex-column align-items-start gap-2 mb-4">
+        <a href="/Teams/TeamQuery" class="btn btn-primary">View Teams →</a>
+        <a href="/Games/GameQuery" class="btn btn-primary">View Games →</a>
+        <a href="/Games/GamesInsert" class="btn btn-primary">New Game →</a>
     </div>
 
-    <div class="home-rule"></div>
-    <p class="home-tagline">Powered by ASP.NET Razor Pages &amp; Azure SQL</p>
+    <hr />
+    <p class="text-muted">Powered by ASP.NET Razor Pages &amp; Azure SQL</p>
 </div>
