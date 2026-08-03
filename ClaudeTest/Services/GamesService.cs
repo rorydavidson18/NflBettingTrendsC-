@@ -107,6 +107,49 @@ public class GamesService : IGamesService
         };
     }
 
+    // Ordered biggest home underdog -> pick'em -> biggest home favorite.
+    // Spread is negative when the home team is favored (see GameEntity.SpreadResult).
+    private static readonly (double Low, double High, string Label)[] AtsBinDefinitions =
+    [
+        (21.5, double.MaxValue, "+21.5 or more"),
+        (17.5, 21, "+17.5 to +21"),
+        (14, 17, "+14 to +17"),
+        (10, 13.5, "+10 to +13.5"),
+        (7.5, 9.5, "+7.5 to +9.5"),
+        (5, 7, "+5 to +7"),
+        (3, 4.5, "+3 to +4.5"),
+        (1, 2.5, "+1 to +2.5"),
+        (-0.5, 0.5, "Pick'em"),
+        (-2.5, -1, "-1 to -2.5"),
+        (-4.5, -3, "-3 to -4.5"),
+        (-7, -5, "-5 to -7"),
+        (-9.5, -7.5, "-7.5 to -9.5"),
+        (-13.5, -10, "-10 to -13.5"),
+        (-17, -14, "-14 to -17"),
+        (-21, -17.5, "-17.5 to -21"),
+        (double.MinValue, -21.5, "-21.5 or more"),
+    ];
+
+    public List<AtsBinModel> CalculateAtsBins(List<GameEntity> games)
+    {
+        // Pushes (SpreadResult == 0) are excluded entirely, not just counted as a non-cover.
+        var decidedGames = games.Where(e => e.SpreadResult != 0).ToList();
+
+        return AtsBinDefinitions.Select(bin =>
+        {
+            var gamesInBin = decidedGames.Where(e => e.Spread >= bin.Low && e.Spread <= bin.High).ToList();
+
+            return new AtsBinModel
+            {
+                Label = bin.Label,
+                GameCount = gamesInBin.Count,
+                CoverPercentage = gamesInBin.Count == 0
+                    ? 0
+                    : (double)gamesInBin.Count(e => e.SpreadResult > 0) / gamesInBin.Count * 100
+            };
+        }).ToList();
+    }
+
     public async Task InsertGame(GameInsertModel model)
     {
         var homeTeamId = await dbContext.Teams.SingleAsync(e => e.Abbreviation == model.HomeTeamAbv);

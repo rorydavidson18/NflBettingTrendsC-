@@ -11,5 +11,7 @@ public interface IGamesService
 
     public TrendsModel CalculateTrends(List<GameEntity> games);
 
+    public List<AtsBinModel> CalculateAtsBins(List<GameEntity> games);
+
     public Task InsertGame(GameInsertModel model);
 }

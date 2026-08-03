@@ -42,13 +42,16 @@ public class GameQuery(IGamesService gamesService) : PageModel
 
     public TrendsModel Trends { get; set; } = new();
 
+    public List<AtsBinModel> AtsBins { get; set; } = [];
+
     private readonly IGamesService gamesService = gamesService;
 
     public async Task OnGetAsync()
     {
-        Games = await gamesService.GetGames(GameId, Team1, Team2, CareAboutHomeAndAway, Spread, 
+        Games = await gamesService.GetGames(GameId, Team1, Team2, CareAboutHomeAndAway, Spread,
             SpreadGreaterThanOrEqualTo, Total, TotalGreaterThanOrEqualTo, StartDate, EndDate);
 
         Trends = gamesService.CalculateTrends(Games);
+        AtsBins = gamesService.CalculateAtsBins(Games);
     }
 }
