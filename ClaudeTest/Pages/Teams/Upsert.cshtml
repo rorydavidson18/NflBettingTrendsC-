@@ -1,17 +1,33 @@
 @page
 @model ClaudeTest.Pages.Teams.UpsertModel
 
-<h2>@(Model.Team.Id == 0 ? "New Team" : "Edit Team")</h2>
+<div class="container py-4">
+    <h2 class="mb-3">@(Model.Team.Id == 0 ? "New Team" : "Edit Team")</h2>
 
-<form method="post">
-    <input type="hidden" asp-for="Team.Id" />
+    <form method="post">
+        <input type="hidden" asp-for="Team.Id" />
 
-    <div class="mb-3">
-        <label asp-for="Team.Name" class="form-label"></label>
-        <input asp-for="Team.Name" class="form-control" />
-        <span asp-validation-for="Team.Name" class="text-danger"></span>
-    </div>
+        <div class="row row-cols-auto g-2 align-items-end mb-3">
+            <div class="col-auto">
+                <label asp-for="Team.Name" class="form-label mb-0"></label>
+                <input asp-for="Team.Name" class="form-control form-control-sm" style="width: 200px" />
+                <span asp-validation-for="Team.Name" class="text-danger"></span>
+            </div>
 
-    <button type="submit" class="btn btn-success">Save</button>
-    <a href="/Teams" class="btn btn-secondary">Cancel</a>
-</form>
+            <div class="col-auto">
+                <label asp-for="Team.Abbreviation" class="form-label mb-0"></label>
+                <input asp-for="Team.Abbreviation" class="form-control form-control-sm" style="width: 90px" />
+                <span asp-validation-for="Team.Abbreviation" class="text-danger"></span>
+            </div>
+
+            <div class="col-auto">
+                <label asp-for="Team.DivisionId" class="form-label mb-0">Division</label>
+                <select asp-for="Team.DivisionId" asp-items="Model.Divisions" class="form-select form-select-sm" style="width: 180px"></select>
+                <span asp-validation-for="Team.DivisionId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/Teams/TeamQuery" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
