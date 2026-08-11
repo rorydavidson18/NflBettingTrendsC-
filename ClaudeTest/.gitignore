@@ -1,0 +1,44 @@
+# Build output
+bin/
+obj/
+publish/
+publish.zip
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.DotSettings.user
+
+# VS Code
+.vscode/
+
+# dotnet
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+
+# User secrets (never commit these)
+appsettings.Development.json
+secrets.json
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Logs
+*.log
+/LogFiles/
+
+# Mac
+.DS_Store
+Thumbs.db
