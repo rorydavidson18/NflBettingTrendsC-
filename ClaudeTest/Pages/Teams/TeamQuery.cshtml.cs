@@ -1,10 +1,12 @@
 using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ClaudeTest.Pages.Teams;
 
+[AllowAnonymous]
 public class TeamQuery : PageModel
 {
     [BindProperty(SupportsGet = true)]

@@ -1,11 +1,13 @@
 using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
 using ClaudeTest.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ClaudeTest.Pages.Games;
 
+[AllowAnonymous]
 public class GameQuery(IGamesService gamesService) : PageModel
 {
     [BindProperty(SupportsGet = true)]
