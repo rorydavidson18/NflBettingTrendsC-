@@ -43,6 +43,7 @@ public class GamesService : IGamesService
                 games = games.Where(e => e.HomeTeam.Abbreviation == team1 || e.AwayTeam.Abbreviation == team1);
             }
 
+            
             if (team2 != null)
             {
                 games = games.Where(e => e.AwayTeam.Abbreviation == team2 || e.HomeTeam.Abbreviation == team2);
