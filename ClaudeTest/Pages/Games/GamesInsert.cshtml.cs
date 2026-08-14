@@ -1,10 +1,12 @@
 using ClaudeTest.Interfaces;
 using ClaudeTest.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ClaudeTest.Pages.Games;
 
+[Authorize(Policy = "AdminOnly")]
 public class GamesInsert(IGamesService gamesService) : PageModel
 {
     [BindProperty]

@@ -20,4 +20,9 @@
         <PackageReference Include="Microsoft.Identity.Web.UI" Version="4.14.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\MyBets\BetInsert.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\MyBets\MyBetsPage.cshtml" />
+    </ItemGroup>
+
 </Project>

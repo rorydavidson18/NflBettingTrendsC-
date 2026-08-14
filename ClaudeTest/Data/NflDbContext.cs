@@ -14,4 +14,5 @@ public class NflDbContext : DbContext
     public DbSet<GameEntity> Games { get; set; }
     public DbSet<ConferenceEntity> Conferences { get; set; }
     public DbSet<DivisionEntity> Divisions { get; set; }
+    public DbSet<UserBetEntity> UserBets { get; set; }
 }

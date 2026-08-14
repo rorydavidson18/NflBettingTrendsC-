@@ -17,14 +17,14 @@ builder.Services.AddAntiforgery();
 builder.Services.AddDbContext<NflDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = options.DefaultPolicy;
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"))
+    .AddPolicy("BetTracker", policy => policy.RequireAuthenticatedUser());
 
 builder.Services
     .AddScoped<ITeamsService, TeamsService>()
-    .AddScoped<IGamesService, GamesService>();
+    .AddScoped<IGamesService, GamesService>()
+    .AddScoped<IUserBetsService, UserBetsService>();
 
 var app = builder.Build();
 

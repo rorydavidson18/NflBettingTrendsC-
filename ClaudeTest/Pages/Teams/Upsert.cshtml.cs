@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ClaudeTest.Data;
 using ClaudeTest.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClaudeTest.Pages.Teams;
 
+[Authorize(Policy = "AdminOnly")]
 public class UpsertModel : PageModel
 {
     private readonly NflDbContext _db;

@@ -7,7 +7,10 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="mb-0">Games</h2>
-        <a href="/Games/GamesInsert" class="btn btn-primary">+ New Game</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/Games/GamesInsert" class="btn btn-primary">+ New Game</a>
+        }
     </div>
 
     <form method="get">
@@ -38,7 +41,8 @@
 
             <div class="col-auto">
                 <label for="CareAboutHomeAndAway" class="form-label mb-0">Home/Away</label>
-                <select id="CareAboutHomeAndAway" name="CareAboutHomeAndAway" class="form-select form-select-sm" style="width: 110px">
+                <select id="CareAboutHomeAndAway" name="CareAboutHomeAndAway" class="form-select form-select-sm"
+                        style="width: 110px">
                     <option value="false" selected="@(!Model.CareAboutHomeAndAway ? "selected" : null)">False
                     </option>
                     <option value="true" selected="@(Model.CareAboutHomeAndAway ? "selected" : null)">True
@@ -70,7 +74,8 @@
 
             <div class="col-auto">
                 <label for="SpreadGreaterThanOrEqualTo" class="form-label mb-0">Spread Comparator</label>
-                <select id="SpreadGreaterThanOrEqualTo" name="SpreadGreaterThanOrEqualTo" class="form-select form-select-sm" style="width: 140px">
+                <select id="SpreadGreaterThanOrEqualTo" name="SpreadGreaterThanOrEqualTo"
+                        class="form-select form-select-sm" style="width: 140px">
                     <option value="true" selected="@(Model.SpreadGreaterThanOrEqualTo ? "selected" : null)">
                         Greater Than
                     </option>
@@ -90,7 +95,8 @@
 
             <div class="col-auto">
                 <label for="TotalGreaterThanOrEqualTo" class="form-label mb-0">Total Comparator</label>
-                <select id="TotalGreaterThanOrEqualTo" name="TotalGreaterThanOrEqualTo" class="form-select form-select-sm" style="width: 140px">
+                <select id="TotalGreaterThanOrEqualTo" name="TotalGreaterThanOrEqualTo"
+                        class="form-select form-select-sm" style="width: 140px">
                     <option value="true" selected="@(Model.TotalGreaterThanOrEqualTo ? "selected" : null)">
                         Greater Than
                     </option>
@@ -208,10 +214,10 @@
         <script>
             (function () {
                 const bins = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.AtsBins,
-                    new System.Text.Json.JsonSerializerOptions
-                    {
-                        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase
-                    }));
+                                 new System.Text.Json.JsonSerializerOptions
+                                 {
+                                     PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase
+                                 }));
 
                 const labels = bins.map(b => b.label);
                 const maxCount = Math.max(...bins.map(b => b.gameCount), 1);
@@ -261,12 +267,12 @@
                         xref: 'paper',
                         y0: 53,
                         y1: 53,
-                        line: { color: '#6c757d', dash: 'dash', width: 1 }
+                        line: {color: '#6c757d', dash: 'dash', width: 1}
                     }],
-                    margin: { t: 50, b: 120 }
+                    margin: {t: 50, b: 120}
                 };
 
-                Plotly.newPlot('atsBinChart', [trace], layout, { responsive: true });
+                Plotly.newPlot('atsBinChart', [trace], layout, {responsive: true});
             })();
         </script>
     }
