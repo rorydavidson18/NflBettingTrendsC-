@@ -21,4 +21,9 @@ public class UserBetEntity
     public GameEntity Game { get; set; } = null!;
     
     public decimal Payout { get; set; }
+
+    public long? TeamId { get; set; }
+
+    [ForeignKey("TeamId")] 
+    public TeamEntity? Team { get; set; } = null!;
 }
