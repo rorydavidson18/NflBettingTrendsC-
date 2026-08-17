@@ -12,9 +12,18 @@
 
         <div class="row row-cols-auto g-2 align-items-end mb-2">
             <div class="col-auto">
-                <label for="GameId" class="form-label mb-0">Game ID</label>
-                <input asp-for="Bet.GameId" class="form-control form-control-sm" style="width: 110px"
-                       type="number" step="1" min="1" id="GameId" required/>
+                <label asp-for="Bet.GameId" class="form-label">Game</label>
+                <select id="GamePicker" asp-for="Bet.GameId" class="form-select game-search">
+                    <option value="">-- Search by date or team --</option>
+                    @foreach (var g in Model.Games)
+                    {
+                        <option value="@g.Value"
+                                data-home="@g.HomeTeamId"
+                                data-away="@g.AwayTeamId">
+                            @g.Text
+                        </option>
+                    }
+                </select>
                 <span asp-validation-for="Bet.GameId" class="text-danger"></span>
             </div>
 
@@ -31,6 +40,18 @@
                        type="number" step="1" id="Odds" required/>
                 <span asp-validation-for="Bet.Odds" class="text-danger"></span>
             </div>
+
+            <div class="col-auto">
+                <label asp-for="Bet.TeamId" class="form-label">Team</label>
+                <select asp-for="Bet.TeamId" id="TeamPicker" class="form-select" disabled>
+                    <option value="">-- Select a game first --</option>
+                    @foreach (var t in Model.Teams)
+                    {
+                        <option value="@t.Value">@t.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Bet.TeamId" class="text-danger"></span>
+            </div>
         </div>
 
         @if (!string.IsNullOrEmpty(Model.Message))
@@ -39,7 +60,7 @@
         }
 
         <button type="submit" class="btn btn-success">Submit</button>
-        <a href="/Games/GameQuery" class="btn btn-secondary">Cancel</a>
+        <button type="reset" class="btn btn-success">Clear</button>
     </form>
 
     <hr class="my-4" />
@@ -66,6 +87,7 @@
             <tr>
                 <th>Date</th>
                 <th>Game</th>
+                <th>Team</th>
                 <th>Bet Size</th>
                 <th>Odds</th>
                 <th>Payout</th>
@@ -77,6 +99,7 @@
                 <tr>
                     <td data-sort="@bet.Date.Ticks">@bet.Date.ToString("d")</td>
                     <td>@bet.Game.AwayTeam.Abbreviation @@ @bet.Game.HomeTeam.Abbreviation</td>
+                    <td>@bet.Team?.Abbreviation</td>
                     <td>@bet.BetSize.ToString("C")</td>
                     <td>@bet.Odds</td>
                     <td class="@(bet.Payout >= 0 ? "text-success" : "text-danger")">@bet.Payout.ToString("C")</td>
@@ -86,3 +109,54 @@
         </table>
     }
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Store all team options on load
+            const allTeamOptions = $('#TeamPicker option').clone();
+            const $teamPicker = $('#TeamPicker');
+
+            $('.game-search').select2({
+                placeholder: 'Search by date or team...',
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
+
+            // When a game is selected, filter the team dropdown
+            $('#GamePicker').on('change', function () {
+                const selected = $(this).find(':selected');
+                const homeId = selected.data('home');
+                const awayId = selected.data('away');
+
+                $teamPicker.empty();
+                $teamPicker.append('<option value="">-- Select a Team --</option>');
+
+                if (homeId && awayId) {
+                    // Filter to only the two teams in the game
+                    allTeamOptions.filter(function () {
+                        const val = $(this).val();
+                        return val == homeId || val == awayId;
+                    }).clone().appendTo($teamPicker);
+
+                    $teamPicker.prop('disabled', false);
+                } else {
+                    // No game selected — disable and reset
+                    $teamPicker.append('<option value="">-- Select a game first --</option>');
+                    $teamPicker.prop('disabled', true);
+                }
+            });
+
+            $('button[type="reset"]').on('click', function () {
+                $('#GamePicker').val('').trigger('change');
+                $teamPicker.val('').prop('disabled', true);
+                $teamPicker.empty().append('<option value="">-- Select a game first --</option>');
+            });
+        });
+    </script>
+}

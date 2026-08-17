@@ -11,4 +11,7 @@ public class UserBetInsertModel
 
     [Range(1, long.MaxValue, ErrorMessage = "GameId must reference a valid game")]
     public long GameId { get; set; }
+
+    [Range(1, 50, ErrorMessage = "TeamId must reference a valid team")]
+    public long TeamId { get; set; }
 }

@@ -21,7 +21,8 @@ public class UserBetsService : IUserBetsService
             BetSize = model.BetSize,
             Odds = model.Odds,
             GameId = model.GameId,
-            Payout = 0 - model.BetSize
+            Payout = 0 - model.BetSize,
+            TeamId = model.TeamId
         };
 
         dbContext.UserBets.Add(entity);

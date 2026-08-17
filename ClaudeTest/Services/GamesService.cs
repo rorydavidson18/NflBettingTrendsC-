@@ -13,6 +13,14 @@ public class GamesService : IGamesService
 
     public GamesService(NflDbContext dbContext) => this.dbContext = dbContext;
 
+    public async Task<List<GameEntity>> GetGames()
+    {
+        return await dbContext.Games
+            .Include(e => e.HomeTeam)
+            .Include(e => e.AwayTeam)
+            .ToListAsync();
+    }
+
     public async Task<List<GameEntity>> GetGames(long? gameId, string? team1, string? team2, bool? careAboutHomeAndAway,
         double? spread, bool spreadGreaterThanOrEqualTo, double? total, bool totalGreaterThanOrEqualTo,
         DateTime startDate, DateTime endDate)
