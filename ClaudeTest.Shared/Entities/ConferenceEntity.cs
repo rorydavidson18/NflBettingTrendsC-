@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ClaudeTest.Entities;
+namespace ClaudeTest.Shared.Entities;
 
 [Table("Conferences")]
 public class ConferenceEntity

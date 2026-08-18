@@ -1,7 +1,7 @@
-using ClaudeTest.Entities;
+using ClaudeTest.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClaudeTest.Data;
+namespace ClaudeTest.Shared.Data;
 
 public class NflDbContext : DbContext
 {

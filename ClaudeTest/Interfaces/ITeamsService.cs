@@ -1,4 +1,4 @@
-using ClaudeTest.Entities;
+using ClaudeTest.Shared.Entities;
 
 namespace ClaudeTest.Interfaces;
 

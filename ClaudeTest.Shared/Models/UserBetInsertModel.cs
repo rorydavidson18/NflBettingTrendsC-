@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ClaudeTest.Models;
+namespace ClaudeTest.Shared.Models;
 
 public class UserBetInsertModel
 {

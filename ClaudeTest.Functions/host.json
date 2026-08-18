@@ -1,0 +1,15 @@
+{
+  "version": "2.0",
+  "extensions": {
+    "timers": {
+      "timeZone": "Eastern Standard Time"
+    }
+  },
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true
+      }
+    }
+  }
+}

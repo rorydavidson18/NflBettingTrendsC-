@@ -1,10 +1,11 @@
-using ClaudeTest.Data;
-using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
-using ClaudeTest.Models;
+using ClaudeTest.Shared.Data;
+using ClaudeTest.Shared.Entities;
+using ClaudeTest.Shared.Interfaces;
+using ClaudeTest.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClaudeTest.Services;
+namespace ClaudeTest.Shared.Services;
 
 public class UserBetsService : IUserBetsService
 {
@@ -28,6 +29,14 @@ public class UserBetsService : IUserBetsService
         dbContext.UserBets.Add(entity);
 
         await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<List<Guid>> GetDistinctUserIds()
+    {
+        return await dbContext.UserBets
+            .Select(e => e.Oid)
+            .Distinct()
+            .ToListAsync();
     }
 
     public async Task<List<UserBetEntity>> GetUserBets(Guid oid)

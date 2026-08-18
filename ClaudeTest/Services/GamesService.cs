@@ -1,8 +1,8 @@
-using ClaudeTest.Data;
-using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
 using ClaudeTest.Mappers;
 using ClaudeTest.Models;
+using ClaudeTest.Shared.Data;
+using ClaudeTest.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClaudeTest.Services;

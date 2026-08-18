@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using ClaudeTest.Data;
 using ClaudeTest.Interfaces;
 using ClaudeTest.Services;
+using ClaudeTest.Shared.Data;
+using ClaudeTest.Shared.Interfaces;
+using ClaudeTest.Shared.Services;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 

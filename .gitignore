@@ -1,1 +1,4 @@
 appsettings.json
+local.settings.json
+bin/
+obj/

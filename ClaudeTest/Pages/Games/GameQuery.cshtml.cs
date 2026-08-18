@@ -1,6 +1,6 @@
-using ClaudeTest.Entities;
 using ClaudeTest.Interfaces;
 using ClaudeTest.Models;
+using ClaudeTest.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

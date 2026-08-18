@@ -21,6 +21,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\ClaudeTest.Shared\ClaudeTest.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\MyBets\BetInsert.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\MyBets\MyBetsPage.cshtml" />
     </ItemGroup>

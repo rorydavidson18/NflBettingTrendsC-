@@ -1,5 +1,5 @@
-using ClaudeTest.Entities;
 using ClaudeTest.Models;
+using ClaudeTest.Shared.Entities;
 
 namespace ClaudeTest.Mappers;
 

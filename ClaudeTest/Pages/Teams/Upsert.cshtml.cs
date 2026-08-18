@@ -1,9 +1,9 @@
+using ClaudeTest.Shared.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ClaudeTest.Data;
-using ClaudeTest.Entities;
+using ClaudeTest.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ClaudeTest.Pages.Teams;
