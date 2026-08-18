@@ -71,7 +71,8 @@ public class BetInsert : PageModel
 
         Bets = await userBetsService.GetUserBets(oid);
 
-        return Page();
+        TempData["Success"] = "Bet saved successfully!";
+        return RedirectToPage("/Bets/BetInsert");
     }
 
     public async Task LoadTeams()
