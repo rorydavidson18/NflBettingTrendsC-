@@ -1,0 +1,167 @@
+@page
+@model NflBettingTrends.Pages.Bets.BetInsert
+@{
+    ViewData["Title"] = "Place Bet";
+}
+
+<div class="container py-4">
+    <h2 class="mb-3">Place Bet</h2>
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="row row-cols-auto g-2 align-items-end mb-2">
+            <div class="col-auto">
+                <label asp-for="Bet.GameId" class="form-label">Game</label>
+                <select id="GamePicker" asp-for="Bet.GameId" class="form-select game-search">
+                    <option value="">-- Search by date or team --</option>
+                    @foreach (var g in Model.Games)
+                    {
+                        <option value="@g.Value"
+                                data-home="@g.HomeTeamId"
+                                data-away="@g.AwayTeamId">
+                            @g.Text
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="Bet.GameId" class="text-danger"></span>
+            </div>
+
+            <div class="col-auto">
+                <label for="BetSize" class="form-label mb-0">Bet Size</label>
+                <input asp-for="Bet.BetSize" class="form-control form-control-sm" style="width: 110px"
+                       type="number" step="0.01" min="0.01" id="BetSize" required/>
+                <span asp-validation-for="Bet.BetSize" class="text-danger"></span>
+            </div>
+
+            <div class="col-auto">
+                <label for="Odds" class="form-label mb-0">Odds</label>
+                <input asp-for="Bet.Odds" class="form-control form-control-sm" style="width: 110px"
+                       type="number" step="1" id="Odds" required/>
+                <span asp-validation-for="Bet.Odds" class="text-danger"></span>
+            </div>
+
+            <div class="col-auto">
+                <label asp-for="Bet.TeamId" class="form-label">Team</label>
+                <select asp-for="Bet.TeamId" id="TeamPicker" class="form-select" disabled>
+                    <option value="">-- Select a game first --</option>
+                    @foreach (var t in Model.Teams)
+                    {
+                        <option value="@t.Value">@t.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Bet.TeamId" class="text-danger"></span>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="mb-3">@Model.Message</div>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
+        }
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="reset" class="btn btn-success">Clear</button>
+    </form>
+
+    <hr class="my-4" />
+
+    <h3 class="mb-3">My Bets</h3>
+
+    @if (!Model.Bets.Any())
+    {
+        <div class="alert alert-info">
+            <p class="mb-0">No bets placed yet.</p>
+        </div>
+    }
+    else
+    {
+        <p class="fw-bold">
+            Total Payout:
+            <span class="@(Model.TotalPayout >= 0 ? "text-success" : "text-danger")">
+                @Model.TotalPayout.ToString("C")
+            </span>
+        </p>
+
+        <table class="table table-striped table-bordered align-middle text-center sortable-table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Game</th>
+                <th>Team</th>
+                <th>Bet Size</th>
+                <th>Odds</th>
+                <th>Payout</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var bet in Model.Bets)
+            {
+                <tr>
+                    <td data-sort="@bet.Date.Ticks">@bet.Date.ToString("d")</td>
+                    <td>@bet.Game.AwayTeam.Abbreviation @@ @bet.Game.HomeTeam.Abbreviation</td>
+                    <td>@bet.Team?.Abbreviation</td>
+                    <td>@bet.BetSize.ToString("C")</td>
+                    <td>@bet.Odds</td>
+                    <td class="@(bet.Payout >= 0 ? "text-success" : "text-danger")">@bet.Payout.ToString("C")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Store all team options on load
+            const allTeamOptions = $('#TeamPicker option').clone();
+            const $teamPicker = $('#TeamPicker');
+
+            $('.game-search').select2({
+                placeholder: 'Search by date or team...',
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
+
+            // When a game is selected, filter the team dropdown
+            $('#GamePicker').on('change', function () {
+                const selected = $(this).find(':selected');
+                const homeId = selected.data('home');
+                const awayId = selected.data('away');
+
+                $teamPicker.empty();
+                $teamPicker.append('<option value="">-- Select a Team --</option>');
+
+                if (homeId && awayId) {
+                    // Filter to only the two teams in the game
+                    allTeamOptions.filter(function () {
+                        const val = $(this).val();
+                        return val == homeId || val == awayId;
+                    }).clone().appendTo($teamPicker);
+
+                    $teamPicker.prop('disabled', false);
+                } else {
+                    // No game selected — disable and reset
+                    $teamPicker.append('<option value="">-- Select a game first --</option>');
+                    $teamPicker.prop('disabled', true);
+                }
+            });
+
+            $('button[type="reset"]').on('click', function () {
+                $('#GamePicker').val('').trigger('change');
+                $teamPicker.val('').prop('disabled', true);
+                $teamPicker.empty().append('<option value="">-- Select a game first --</option>');
+            });
+        });
+    </script>
+}

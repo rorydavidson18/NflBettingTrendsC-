@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
+        <PackageReference Include="Azure.Identity" Version="1.17.2" />
+        <PackageReference Include="Microsoft.Identity.Web" Version="4.14.2" />
+        <PackageReference Include="Microsoft.Identity.Web.UI" Version="4.14.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\NflBettingTrends.Shared\NflBettingTrends.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\MyBets\BetInsert.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\MyBets\MyBetsPage.cshtml" />
+    </ItemGroup>
+
+</Project>

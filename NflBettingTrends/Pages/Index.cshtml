@@ -1,0 +1,26 @@
+@page
+@model NflBettingTrends.Pages.Index
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container py-4">
+    <p class="text-muted mb-4">Welcome</p>
+
+    <div class="d-flex flex-column align-items-start gap-2 mb-4">
+        <a href="/Teams/TeamQuery" class="btn btn-primary">View Teams →</a>
+        <a href="/Games/GameQuery" class="btn btn-primary">View Games →</a>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="/Games/GamesInsert" class="btn btn-primary">New Game →</a>
+            }
+            <a href="/Bets/BetInsert" class="btn btn-primary">My Bets →</a>
+        }
+    </div>
+
+    <hr />
+    <p class="text-muted">Powered by ASP.NET Razor Pages &amp; Azure SQL</p>
+</div>
