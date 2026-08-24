@@ -1,6 +1,6 @@
 # NFL Betting Trends
 
-A web app for browsing NFL game results and spread trends, and for logging your own bets against the spread — including a nightly background job that automatically settles bet payouts once games are final.
+A web app (https://nflbettingprojectwebapp-bhg8f4e9aahharea.westus2-01.azurewebsites.net/) for browsing NFL game results and spread trends, and for logging your own bets against the spread — including a nightly background job that automatically settles bet payouts once games are final.
 
 ## What it does
 
